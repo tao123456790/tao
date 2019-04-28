@@ -35,12 +35,12 @@ require_once('condb.php');
 	}
 
 
-			 $sql = "INSERT INTO order_admin 
-					(order_name, 
-					order_size,
-					order_price, 
-					order_detail, 
-					order_img) 
+			 $sql = "INSERT INTO products 
+					(products_name, 
+					products_size,
+					products_price, 
+					products_detail, 
+					products_img) 
 					VALUES
 					('$order_name',
 					'$order_size',

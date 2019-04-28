@@ -52,7 +52,7 @@
                     ?>
                 </tbody>
             </table>
-            <a href="./" class="btn btn-dark"><i class="fas fa-caret-left"></i>  กลับไปหน้าตะกร้าสินค้า</a>
+            <a href="order.php/" class="btn btn-dark"><i class="fas fa-caret-left"></i>  กลับไปหน้าตะกร้าสินค้า</a>
             <div class="float-right">
                 <input type="hidden" name="total_qty" value="<?php echo $qty ;?>">
                 <input type="hidden" name="total" value="<?php echo $total ;?>">

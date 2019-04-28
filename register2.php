@@ -78,20 +78,34 @@ a {
     <p>Please fill in this form to create an account.</p>
     <hr>
 
-    <label for="re_username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="re_username" required id="re_username">
+    <label for="member_user"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="member_user" required id="member_user">
 
-    <label for="re_password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="re_password" required id="re_password">
+    <label for="member_pass "><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="member_pass" required id="member_pass">
  
-      <label for="re_name"><b>Name</b></label>
-    <input type="text" placeholder="Enter Name" name="re_name" required id="re_name">
+      <label for="member_name "><b>Name</b></label>
+    <input type="text" placeholder="Enter Name" name="member_name" required id="member_name">
     
-    <label for="re_tel"><b>Tel</b></label>
-    <input type="text" placeholder="Enter Tel" name="re_tel" required id="re_tel">
+    <label for="member_surname "><b>Surname</b></label>
+    <input type="text" placeholder="Enter Surname" name="member_surname" required id="member_surname">
     
-    <label for="re_address"><b>Address</b></label>
-    <input type="text" placeholder="Enter Address" name="re_address" required id="re_address">
+    <label for="member_address"><b>Address</b></label>
+   <input type="text" placeholder="Enter Address" name="member_address" required id="member_address"> 
+   
+       <label for="member_address"><b>Emial</b></label>
+   <input type="text" placeholder="Enter Email" name="member_email" required id="member_email"> 
+
+
+    <label for="member_address"><b>Phone</b></label>
+   <input name="member_phone" type="text" required id="member_phone" placeholder="Enter Phone"> 
+    <label for="member_address"><b>gender</b></label>
+   <select  name="member_gender" id="member_gender">
+  <option value="ชาย">ชาย</option>
+  <option value="หญิง">หญิง</option>
+</select> 
+
+
     
     <hr>
     
