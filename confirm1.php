@@ -1,112 +1,66 @@
 <?php
-	error_reporting( error_reporting() & ~E_NOTICE );
-    session_start();   
+	session_start();
+    include("condb.php"); 
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Shopping Cart devbanban</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 </head>
 <body>
-<?php include("condb.php");
-?>
 
 <div class="container">
-	<div class="row">
-    	<div class="col-md-2"></div>
-        <div class="col-md-8">
+    <div class="main">
+        <form action="save_order.php" method="post">
+            <blockquote class="blockquote text-center">ยืนยันการสั่งชื้อ</blockquote>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" align="center">ลำดับ</th>
+                        <th scope="col" align="center">สินค้า</th>
+                        <th scope="col" align="center">ราคา</th>
+                        <th scope="col" align="center">จำนวน</th>
+                        <th scope="col" align="center">รวม / รายการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
 
-  <p><a href="cart.php">กลับหน้าตะกร้าสินค้า</a> &nbsp;  <button class="btn btn-primary" onClick="window.print()"> print </button></p>
-  <table width="700" border="1" align="center" class="table">
-    <tr>
-      <td width="1558" colspan="5" align="center">
-      <strong>สั่งซื้อสินค้า</strong></td>
-    </tr>
-    <tr class="success">
-    <td align="center">ลำดับ</td>
-      <td align="center">สินค้า</td>
-      <td align="center">ราคา</td>
-      <td align="center">จำนวน</td>
-      <td align="center">รวม/รายการ</td>
-    </tr>
-<?php
-	require_once('condb.php');
-	$total=0;
-	foreach($_SESSION['shopping_cart'] as $p_id=>$p_qty)
-	{
-		$sql = "select * from order_admin where order_id=$p_id";
-		$query = mysqli_query($con, $sql);
-		$row	= mysqli_fetch_assoc($query);
-		$sum	= $row['order_price']*$p_qty;
-		$total	+= $sum;
-    echo "<tr>";
-	echo "<td align='center'>";
-	echo  $i += 1;
-	echo "</td>";
-    echo "<td>" . $row["order_name"] . "</td>";
-    echo "<td align='right'>" .number_format($row['order_price'],2) ."</td>";
-    echo "<td align='right'>$p_qty</td>";
-    echo "<td align='right'>".number_format($sum,2)."</td>";
-    echo "</tr>";
-	}
-	echo "<tr>";
-    echo "<td  align='right' colspan='4'><b>รวม</b></td>";
-    echo "<td align='right'>"."<b>".number_format($total,2)."</b>"."</td>";
-    echo "</tr>";
-?>
-</table>
-
-		</div>
-	</div>
-</div>
-    <?php
-	session_start();
-	include("condb.php");
-	$ccon = "SELECT * FROM register WHERE re_id = '".$_SESSION['re_id']."'";
-	$objQuery = mysqli_query($con,$ccon);
-	$objResult = mysqli_fetch_array($objQuery,MYSQLI_ASSOC);
-	?>
-<div class="container">
-  <div class="row">
-  <div class="col-md-4"></div>
-    <div class="col-md-5" style="background-color:#f4f4f4">
-      <h3 align="center" style="color:green">
-      <span class="glyphicon glyphicon-shopping-cart"> </span>
-         confirm cart </h3>
-      <form  name="formlogin" action="saveorder.php" method="POST" id="login" class="form-horizontal">
-        <div class="form-group">
-          <div class="col-sm-12">
-            <input type="text"  name="name" class="form-control" id="c_name" value="<?php echo $objResult["re_name"] ?>" required placeholder="ชื่อ-สกุล" />
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12">
-            <input type="text"  name="c_tel" class="form-control" id=	"c_tel2" value="<?php echo $objResult["re_tel"] ?>" required placeholder="เบอร์โทรศัพท์" />
-        
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12">
-            <input type="text"  name="phone" class="form-control" id="c_tel" value="<?php echo $objResult["re_address"] ?>" required placeholder="ที่อยู่" />
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12"></div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12" align="center">
-            
-             
-          </div>
-        </div>
-      </form>
+                    $total = 0;
+                    if(!empty($_SESSION['cart'])) {
+                        foreach($_SESSION['cart'] as $products_id=>$qty){
+                            $sql = "SELECT * FROM products WHERE products_id = $products_id";
+                            $query = mysqli_query($con, $sql);
+                            $row = mysqli_fetch_array($query);
+                            $sum = $row['products_price'] * $qty;
+                            $total += $sum;
+                            @$i = $i + 1;
+                            echo "<tr>";
+                            echo "<td>".$i."</td>";
+                            echo "<td>".$row["products_name"]."</td>";
+                            echo "<td>".number_format($row["products_price"],2)."</td>";
+                            echo "<td>".$qty."</td>";
+                            echo "<td style='color:#d9272e'>".number_format($sum,2)."</td>";
+                            echo "</tr>";
+                        }
+                        echo "<tr>";
+                        echo "<td colspan='4' style='color:#FFFFFF' bgcolor='#343a40' align='center'><b>ราคารวม</b></td>";
+                        echo "<td align='right' style='color:#FFFFFF'bgcolor='#343a40'>"."<b>".number_format($total,2)." บาท</b>"."</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <a href="./" class="btn btn-dark"><i class="fas fa-caret-left"></i>  กลับไปหน้าตะกร้าสินค้า</a>
+            <div class="float-right">
+                <input type="hidden" name="total_qty" value="<?php echo $qty ;?>">
+                <input type="hidden" name="total" value="<?php echo $total ;?>">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION["member_id"];?>">
+                <button type="submit" class="btn btn-success"><i class="fas fa-money-check-alt"></i> สั่งสินค้า</button>     
+            </div>
+        </form>
     </div>
-  </div>
 </div>
-
 
 </body>
-</html>
