@@ -53,5 +53,5 @@
 
 <script type="text/javascript">
 	alert("<?php echo $msg;?>");
-	window.location ='order.php';
+	window.location ='order_list.php';
 </script>
